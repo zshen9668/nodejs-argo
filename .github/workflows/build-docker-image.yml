@@ -1,14 +1,14 @@
 name: Build and Push Docker Image
 
-于:
+on:
   push:
-    分支: [ main ]
+    branches: [ main ]
     paths:
       - 'Dockerfile'
       - 'index.js'
       - 'package.json'
   pull_request:
-    分支: [ main ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -17,7 +17,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -38,8 +37,8 @@ jobs:
           context: .
           push: true
           platforms: linux/amd64,linux/arm64
-          标签: |
-            ghcr.io/${{ github.repository_owner }}/jm:test
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/nodejs:latest
           labels: |
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
             org.opencontainers.image.description=HTTP Server
